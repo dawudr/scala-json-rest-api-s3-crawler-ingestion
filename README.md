@@ -35,7 +35,7 @@ java -jar /path_to_jar/rest-connector_2.10-1.0.jar config=path_to_config_file  a
 
 ## Config file
 
-To read the configuration parameters https://github.com/typesafehub/config is being used so any format supported by them is implicitily supported.
+To read the configuration parameters https://github.com/typesafehub/config is being used so any format supported by them is implicitily supported. The sample-application.conf file is provided. Ensure you copy this and create application.conf with your credentials filled in and include "config=application.conf" in program arguments when running the application.
 
 | Property name | Description   |
 | ------------- |:-------------:|

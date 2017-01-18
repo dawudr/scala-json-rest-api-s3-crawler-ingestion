@@ -75,7 +75,7 @@ class RestClient(private val apiName: String,
             logger.info("Total Response count: {}.", counter + " Time taken: " + (new DateTime().toDate.getTime - timeStamp.toDate.getTime)) + "ms";
             break()
           } else {
-            val key = apiName + "_offset_" + offset.toString + "_" + dateFormatGeneration.print(timeStamp)
+            val key = apiName + "_offset_" + currentOffset.toString + "_" + dateFormatGeneration.print(timeStamp)
             responseWriter.writeContent(response, key)
             counter += 1
             resultsCounter += size

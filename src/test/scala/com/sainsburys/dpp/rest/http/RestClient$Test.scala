@@ -10,10 +10,11 @@ import scalaj.http.HttpResponse
 
 class RestClient$Test extends FunSuite with BeforeAndAfterEach with MockitoSugar {
 
-  test("test Get Content") {
+  test("test sending a GET request return response code 200 and results in the response body") {
     val restClient = mock[RestClient]
-//    when(restClient.getContent(50, 50)).thenReturn(new HttpResponse[String])
-    assert(true)
+    val response = new HttpResponse("results", 200, Map.empty)
+    when(restClient.sendGetRequest(50, 50)).thenReturn(response)
+    assert(response.body.equals("results"))
   }
 
 }

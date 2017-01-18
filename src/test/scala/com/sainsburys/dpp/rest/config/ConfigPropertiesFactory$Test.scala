@@ -10,7 +10,7 @@ class ConfigPropertiesFactory$Test extends FunSuite {
     args(0) = "config=application.conf"
     val configProperties = ConfigPropertiesFactory.load(args)
     assert(configProperties.apiName.equals("storelocation"))
-    assert(configProperties.apiUrl.equals("https://api.stores.sainsburys.co.uk/v1/stores"))
+    assert(configProperties.apiUrl.equals("https://api.stores.sainsburys.co.uk/v1/stores/"))
     assert(configProperties.apiApiClientId.equals( "dpp"))
     assert(configProperties.apiLimit == 50)
     assert(configProperties.apiOffset == 50)

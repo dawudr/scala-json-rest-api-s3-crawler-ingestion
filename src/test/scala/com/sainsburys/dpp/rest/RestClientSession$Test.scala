@@ -10,7 +10,7 @@ object RestClientSession$Test extends Loggable {
 
   def main(args: Array[String]): Unit = {
     if (args.length == 0) {
-      println("Please supply a application.conf file")
+      println("Please supply an application.conf file")
       System.exit(0)
     }
     val tStart = new Date().getTime
