@@ -27,7 +27,7 @@ class RestClient(private val apiName: String,
     */
   def sendGetRequest(limit: Int = 50, offset: Int = 0): HttpResponse[String] = {
     val params = Map("api_client_id" -> apiClientId, "limit" -> limit.toString, "offset" -> offset.toString)
-    logger.info("Sending GET request to endpoint: {}", apiUrl + " with parameters: " + params);
+    logger.info("Sending GET request to endpoint: {}", apiUrl + params.map(pair => pair._1+"="+pair._2).mkString("?","&",""));
     val httpResponse: HttpResponse[String] = Http(apiUrl)
       .params(params)
       .timeout(connTimeoutMs = 2000, readTimeoutMs = 5000)
@@ -38,7 +38,7 @@ class RestClient(private val apiName: String,
       if (!httpResponse.contentType.get.equals(ContentType.APPLICATION_JSON.getMimeType)) {
         logger.error("Failed: HTTP response content-type required: " + ContentType.APPLICATION_JSON.getMimeType + ". Actual content-type was {} ", httpResponse.contentType.get)
       } else {
-        logger.info("Success Response: {} ", httpResponse.statusLine)
+        logger.info("Success Response: {} ", httpResponse.headers)
       }
     }
     httpResponse
@@ -72,7 +72,7 @@ class RestClient(private val apiName: String,
           val size = resultsNode.size();
           if (size == 0) {
             logger.info("Crawler ended at OFFSET: {} ", currentOffset + " Total items found: " + (resultsCounter));
-            logger.info("Total Response count: {}.", counter + " Time taken: " + (new DateTime().toDate.getTime - timeStamp.toDate.getTime)) + "ms";
+            logger.info("Total Response count: {}.", counter + " Time taken: " + (new DateTime().toDate.getTime - timeStamp.toDate.getTime).toString) + "ms";
             break()
           } else {
             val key = apiName + "_offset_" + currentOffset.toString + "_" + dateFormatGeneration.print(timeStamp)
@@ -85,7 +85,7 @@ class RestClient(private val apiName: String,
         //check if we reached maxOffset Limit to prevent crawling forever
         if ((currentOffset + offset) >= apiMaxOffset) {
           logger.info("Max Offset for Crawler reached. Ended at OFFSET: {}. ", currentOffset + " Total items found: " + (resultsCounter));
-          logger.info("Total Response count: {}.", counter + " Time taken: " + (new DateTime().toDate.getTime - timeStamp.toDate.getTime + "ms"));
+          logger.info("Total Response count: {}.", counter + " Time taken: " + ((new DateTime().toDate.getTime - timeStamp.toDate.getTime).toString + "ms"));
         }
       }
     }

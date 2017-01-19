@@ -19,3 +19,4 @@ libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.10" % "3.0.1" % "test",
   "org.scalaj" %% "scalaj-http" % "2.3.0")
 
+trapExit := false

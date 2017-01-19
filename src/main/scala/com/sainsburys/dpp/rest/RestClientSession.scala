@@ -33,7 +33,6 @@ object RestClientSession extends Loggable {
       configProperties.apiListNodeName)
 
     logger.info("RestClientSession finished the task successfully. Time taken: {}ms", new Date().getTime - tStart)
-    System.exit(0)
   }
 
 }
