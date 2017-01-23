@@ -17,7 +17,7 @@ class RestClientService$Test extends FunSuite with BeforeAndAfter {
     val responseWriter = new LocalFileStoreResponseWriter(configProperties.apiOutputPath)
     val restClient: RestClient = RestClient(configProperties, responseWriter)
     val service = new RestClientService(restClient)
-    val actualResponse = service.getStoreLocationData(50,50)
+    val actualResponse = service.getStoreLocation(50,50)
 
     assert(actualResponse.contains("results"))
 
