@@ -22,10 +22,15 @@ object RestClientSession$Test extends Loggable {
     // create instance of rest client and send request
     val service = new RestClientService(restClient)
 
-    // call crawler service
-    service.crawlStoreLocationData(configProperties.apiLimit,
-      configProperties.apiOffset,
-      configProperties.apiListNodeName)
+    // do not crawl if response is not paginated
+    if (configProperties.apiListNodeName.isEmpty) {
+      service.getStoreLocation(configProperties.apiLimit)
+    } else {
+      // call crawler service
+      service.crawlStoreLocationData(configProperties.apiLimit,
+        configProperties.apiOffset,
+        configProperties.apiListNodeName)
+    }
 
     logger.info("RestClientSession finished the task successfully. Time taken: {}ms", new Date().getTime - tStart)
     System.exit(0)

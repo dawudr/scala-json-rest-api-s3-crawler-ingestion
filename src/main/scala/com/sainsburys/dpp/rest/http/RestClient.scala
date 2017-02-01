@@ -46,6 +46,19 @@ class RestClient(private val apiName: String,
 
 
   /**
+    * Return single REST api Response where there is no pagination of results
+    */
+  def getContent(limit: Int = 50) = {
+    logger.info("Getting contents with results limit {} ", limit);
+    val dateFormatGeneration: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd-HH-mm");
+    val timeStamp = new DateTime();
+    val key = apiName + "_" + dateFormatGeneration.print(timeStamp)
+    val response = sendGetRequest(limit)
+    responseWriter.writeContent(response, key)
+  }
+
+
+  /**
     * Crawls REST api where there is an offset, limit parameter and a parent of list nodename to iterate over
     */
   def crawler(limit: Int, offset: Int, listIteratorNodeName: String) = {
